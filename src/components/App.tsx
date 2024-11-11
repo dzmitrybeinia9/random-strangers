@@ -1,14 +1,20 @@
-import { useState } from 'react'
-import { DataTable } from "./table/data-table"
-import users from "./assets/mock_data.json"
-import mzgb from "./assets/mzgb.json"
-import { allTimeColumns, seasonColumns } from "./table/columns"
-import classic from "./assets/classic.jpg"
-import music from "./assets/music.jpg"
+import { useState, useMemo } from 'react'
+import { DataTable } from "../table/data-table"
+import { allTimeColumns, seasonColumns } from "../table/columns"
+import classic from "../assets/classic.jpg"
+import music from "../assets/music.jpg"
 
-function App() {
+interface AppProps {
+  classicResponse: any[];
+  musicResponse: any[];
+}
+
+function App({ classicResponse, musicResponse }: AppProps) {
   const [contentMode, setContentMode] = useState<'music' | 'classic'>('classic')
   const [viewMode, setViewMode] = useState<'all' | 'season'>('all')
+  //save data in memory
+  const classicData = useMemo(() => classicResponse, [])
+  const musicData = useMemo(() => musicResponse, [])
 
   const backgroundStyle = {
     backgroundImage: `url(${contentMode === 'music' ? music : classic})`,
@@ -16,8 +22,6 @@ function App() {
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     zIndex: -1,
-    // minHeight: '100vh',
-    // height: '150px'
   }
 
   return (
@@ -78,7 +82,7 @@ function App() {
         <div className="bg-white/80 backdrop-blur rounded-lg p-4 ml-7 mr-7">
           <DataTable
             columns={viewMode === 'all' ? allTimeColumns : seasonColumns}
-            data={contentMode === 'music' ? users.rating : mzgb.rating}
+            data={contentMode === 'music' ? classicData : musicData}
           />
         </div>
       </div>
