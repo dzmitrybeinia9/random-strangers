@@ -65,6 +65,12 @@
   }
 }
 
+@layer components {
+  .smooth-button {
+    @apply px-4 py-2 rounded-md transition-all duration-700 ease-smooth
+  }
+}
+
 
 @keyframes fadeIn {
   from {

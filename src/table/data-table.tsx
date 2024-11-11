@@ -54,7 +54,8 @@ export function DataTable<TData, TValue>({
     return (
         <div>
             {/* Filter input */}
-            <div className="flex items-center py-4">
+            {/* hide input on small devices */}
+            <div className="flex items-center py-4 md:block hidden">
                 <Input
                     placeholder="Find team..."
                     value={(table.getColumn("team")?.getFilterValue() as string) ?? ""}

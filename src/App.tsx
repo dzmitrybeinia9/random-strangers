@@ -22,27 +22,29 @@ function App() {
 
   return (
     <div className="min-h-screen">
-      <div className="container mx-auto py-10 " style={backgroundStyle}>
+      {/* smooth background transition */}
+      {/* add margin-top on laptop screens */}
+      <div className="container mx-auto py-5 lg:mt-5 transition-all duration-1000 ease-in-out" style={backgroundStyle}>
         {/* Classic/Music Switcher */}
-        <div className="flex items-center justify-center mb-4 gap-2" >
-          <div className="bg-gray-200/80 backdrop-blur rounded-lg p-1 w-19">
+        <div className="flex items-center justify-center mb-4 gap-2">
+          <div className="bg-gray-200/80 backdrop-blur rounded-lg p-1 w-auto">
             <button
-              className={`px-4 py-2 rounded-md transition-all duration-200 ${
-                contentMode === 'classic'
-                  ? 'bg-white shadow-md text-gray-800'
-                  : 'text-gray-600 hover:text-gray-800'
-              }`}
+              // smooth transition
+              className={`smooth-button ${contentMode === 'classic'
+                ? 'bg-white shadow-md text-gray-800'
+                : 'text-gray-600 hover:text-gray-800'
+                }`}
               onClick={() => setContentMode('classic')}
             >
               Classic
             </button>
 
             <button
-              className={`px-4 py-2 rounded-md transition-all duration-200 ${
-                contentMode === 'music'
-                  ? 'bg-white shadow-md text-gray-800'
-                  : 'text-gray-600 hover:text-gray-800'
-              }`}
+              // smooth transition
+              className={`smooth-button ${contentMode === 'music'
+                ? 'bg-white shadow-md text-gray-800'
+                : 'text-gray-600 hover:text-gray-800'
+                }`}
               onClick={() => setContentMode('music')}
             >
               Music
@@ -51,21 +53,21 @@ function App() {
 
           <div className="bg-gray-200/80 backdrop-blur rounded-lg p-1">
             <button
-              className={`px-4 py-2 rounded-md transition-all duration-200 ${
-                viewMode === 'all'
-                  ? 'bg-white shadow-md text-gray-800'
-                  : 'text-gray-600 hover:text-gray-800'
-              }`}
+              // smooth transition
+              className={`smooth-button ${viewMode === 'all'
+                ? 'bg-white shadow-md text-gray-800'
+                : 'text-gray-600 hover:text-gray-800'
+                }`}
               onClick={() => setViewMode('all')}
             >
               All Time
             </button>
             <button
-              className={`px-4 py-2 rounded-md transition-all duration-200 ${
-                viewMode === 'season'
-                  ? 'bg-white shadow-md text-gray-800'
-                  : 'text-gray-600 hover:text-gray-800'
-              }`}
+              // smooth transition
+              className={`smooth-button ${viewMode === 'season'
+                ? 'bg-white shadow-md text-gray-800'
+                : 'text-gray-600 hover:text-gray-800'
+                }`}
               onClick={() => setViewMode('season')}
             >
               Season
@@ -74,9 +76,9 @@ function App() {
         </div>
 
         <div className="bg-white/80 backdrop-blur rounded-lg p-4 ml-7 mr-7">
-          <DataTable 
-            columns={viewMode === 'all' ? allTimeColumns : seasonColumns} 
-            data={contentMode === 'music' ? users.rating : mzgb.rating} 
+          <DataTable
+            columns={viewMode === 'all' ? allTimeColumns : seasonColumns}
+            data={contentMode === 'music' ? users.rating : mzgb.rating}
           />
         </div>
       </div>
@@ -84,4 +86,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
