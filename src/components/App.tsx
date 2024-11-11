@@ -82,7 +82,7 @@ function App({ classicResponse, musicResponse }: AppProps) {
         <div className="bg-white/80 backdrop-blur rounded-lg p-4 ml-7 mr-7">
           <DataTable
             columns={viewMode === 'all' ? allTimeColumns : seasonColumns}
-            data={contentMode === 'music' ? classicData : musicData}
+            data={contentMode === 'music' ? musicData : classicData}
           />
         </div>
       </div>
