@@ -72,6 +72,13 @@ export const seasonColumns: ColumnDef<TeamData>[] = [
     {
         accessorKey: "team",
         header: "Team",
+        // customizing the cell value for the team 'Первые встречные'
+        cell: ({ getValue }) => {
+            const teamName = getValue();
+            return teamName === 'Первые встречные'
+                ? `${teamName} 👑`
+                : teamName;
+        }
     },
     // {
     //     accessorKey: "rank_name",

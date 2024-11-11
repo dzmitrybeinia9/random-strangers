@@ -93,6 +93,12 @@ export function DataTable<TData, TValue>({
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
+                                    // highlight the team
+                                    className={
+                                        row.original.team === 'Первые встречные'
+                                            ? 'bg-green-100 hover:bg-green-100 dark:bg-green-900/20 dark:hover:bg-green-900/30'
+                                            : 'hover:bg-gray-50 dark:hover:bg-gray-800'
+                                    }
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
