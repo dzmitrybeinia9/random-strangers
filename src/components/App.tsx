@@ -17,7 +17,7 @@ function App({ classicResponse, musicResponse }: AppProps) {
   const musicData = useMemo(() => musicResponse, [])
 
   const backgroundStyle = {
-    backgroundImage: `url(${contentMode === 'music' ? music : classic})`,
+    backgroundColor: `${contentMode === 'music' ? '#DB39C9' : '#773DD9'}`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
