@@ -1,8 +1,6 @@
 import { useState, useMemo } from 'react'
 import { DataTable } from "../table/data-table"
 import { allTimeColumns, seasonColumns } from "../table/columns"
-import classic from "../assets/classic.jpg"
-import music from "../assets/music.jpg"
 
 interface AppProps {
   classicResponse: any[];
