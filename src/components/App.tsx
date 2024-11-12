@@ -25,7 +25,7 @@ function App({ classicResponse, musicResponse }: AppProps) {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen font-regular">
       {/* smooth background transition */}
       {/* add margin-top on laptop screens */}
       <div className="container mx-auto py-5 lg:mt-5 transition-all duration-1000 ease-in-out" style={backgroundStyle}>
