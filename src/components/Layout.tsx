@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom'
-import Navigation from './Navigation'
+import Navigation from '../components/layout/Navigation'
 
 function Layout() {
   const location = useLocation()

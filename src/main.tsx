@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Query from './components/Query'
 import Layout from './components/layout/Layout'
 import PhotosPage from './pages/photos'
+import Statistics from './pages/statistics'
 import './index.css'
 
 const queryClient = new QueryClient()
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: 'photos',
         element: <PhotosPage />,
+      },
+      {
+        path: 'statistics',
+        element: <Statistics />,
       },
     ],
   },
