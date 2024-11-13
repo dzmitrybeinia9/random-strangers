@@ -1,9 +1,10 @@
 import { useState, useMemo, useEffect } from 'react'
-import { allTimeColumns, seasonColumns, TeamData } from "../table/columns"
+import { allTimeColumns, seasonColumns } from "../../table/columns"
 import { SortingState } from "@tanstack/react-table"
-import Dashboard from './Dashboard'
+import Dashboard from './components/Dashboard'
+import { TeamData } from '../../lib/types'
 
-interface AppProps {
+interface DashboardPageProps {
   classicResponse: TeamData[];
   musicResponse: TeamData[];
 }
@@ -16,7 +17,7 @@ const THEME_COLORS = {
   classic: '#773DD9',
 } as const
 
-function App({ classicResponse, musicResponse }: AppProps) {
+function DashboardPage({ classicResponse, musicResponse }: DashboardPageProps) {
   const [contentMode, setContentMode] = useState<ContentMode>('classic')
   const [viewMode, setViewMode] = useState<ViewMode>('all')
   const [sorting, setSorting] = useState<SortingState>([
@@ -61,4 +62,4 @@ function App({ classicResponse, musicResponse }: AppProps) {
   )
 }
 
-export default App
+export default DashboardPage 
