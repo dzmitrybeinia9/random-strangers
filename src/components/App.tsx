@@ -1,86 +1,93 @@
 import { useState, useMemo } from 'react'
 import { DataTable } from "../table/data-table"
-import { allTimeColumns, seasonColumns } from "../table/columns"
+import { allTimeColumns, seasonColumns, TeamData } from "../table/columns"
 
 interface AppProps {
-  classicResponse: any[];
-  musicResponse: any[];
+  classicResponse: TeamData[];
+  musicResponse: TeamData[];
 }
 
+type ContentMode = 'music' | 'classic'
+type ViewMode = 'all' | 'season'
+
+const THEME_COLORS = {
+  music: '#DB39C9',
+  classic: '#773DD9',
+} as const
+
+interface SwitchButtonProps {
+  isActive: boolean;
+  onClick: () => void;
+  label: string;
+}
+
+const SwitchButton = ({ isActive, onClick, label }: SwitchButtonProps) => (
+  <button
+    className={`smooth-button ${
+      isActive
+        ? 'bg-white shadow-md text-gray-800'
+        : 'text-gray-600 hover:text-gray-800'
+    }`}
+    onClick={onClick}
+  >
+    {label}
+  </button>
+)
+
 function App({ classicResponse, musicResponse }: AppProps) {
-  const [contentMode, setContentMode] = useState<'music' | 'classic'>('classic')
-  const [viewMode, setViewMode] = useState<'all' | 'season'>('all')
-  //save data in memory
-  const classicData = useMemo(() => classicResponse, [])
-  const musicData = useMemo(() => musicResponse, [])
+  const [contentMode, setContentMode] = useState<ContentMode>('classic')
+  const [viewMode, setViewMode] = useState<ViewMode>('all')
+
+  const classicData = useMemo(() => classicResponse, [classicResponse])
+  const musicData = useMemo(() => musicResponse, [musicResponse])
 
   const backgroundStyle = {
-    backgroundColor: `${contentMode === 'music' ? '#DB39C9' : '#773DD9'}`,
+    backgroundColor: THEME_COLORS[contentMode],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     zIndex: -1,
   }
 
+  const currentData = contentMode === 'music' ? musicData : classicData
+  const currentColumns = viewMode === 'all' ? allTimeColumns : seasonColumns
+
   return (
     <div className="min-h-screen font-regular">      
-      {/* smooth background transition */}
-      {/* add margin-top on laptop screens */}
-      <div className="container mx-auto py-5 lg:mt-5 transition-all duration-1000 ease-in-out" style={backgroundStyle}>
-        {/* Classic/Music Switcher */}
+      <div className="container mx-auto py-5 lg:mt-5 transition-all duration-1000 ease-in-out" 
+           style={backgroundStyle}>
         <div className="flex items-center justify-center mb-4 gap-2">
           <div className="bg-gray-200/80 backdrop-blur rounded-lg p-1 w-auto">
-            <button
-              // smooth transition
-              className={`smooth-button ${contentMode === 'classic'
-                ? 'bg-white shadow-md text-gray-800'
-                : 'text-gray-600 hover:text-gray-800'
-                }`}
+            <SwitchButton
+              isActive={contentMode === 'classic'}
               onClick={() => setContentMode('classic')}
-            >
-              Classic
-            </button>
-
-            <button
-              // smooth transition
-              className={`smooth-button ${contentMode === 'music'
-                ? 'bg-white shadow-md text-gray-800'
-                : 'text-gray-600 hover:text-gray-800'
-                }`}
+              label="Classic"
+            />
+            <SwitchButton
+              isActive={contentMode === 'music'}
               onClick={() => setContentMode('music')}
-            >
-              Music
-            </button>
+              label="Music"
+            />
           </div>
 
           <div className="bg-gray-200/80 backdrop-blur rounded-lg p-1">
-            <button
-              // smooth transition
-              className={`smooth-button ${viewMode === 'all'
-                ? 'bg-white shadow-md text-gray-800'
-                : 'text-gray-600 hover:text-gray-800'
-                }`}
+            <SwitchButton
+              isActive={viewMode === 'all'}
               onClick={() => setViewMode('all')}
-            >
-              All Time
-            </button>
-            <button
-              // smooth transition
-              className={`smooth-button ${viewMode === 'season'
-                ? 'bg-white shadow-md text-gray-800'
-                : 'text-gray-600 hover:text-gray-800'
-                }`}
+              label="All Time"
+            />
+            <SwitchButton
+              isActive={viewMode === 'season'}
               onClick={() => setViewMode('season')}
-            >
-              Season
-            </button>
+              label="Season"
+            />
           </div>
         </div>
 
-        <div className="bg-white/80 backdrop-blur rounded-lg p-4 ml-7 mr-7">
+        <div className="bg-white/80 backdrop-blur rounded-lg p-4 mx-7">
           <DataTable
-            columns={viewMode === 'all' ? allTimeColumns : seasonColumns}
-            data={contentMode === 'music' ? musicData : classicData}
+            columns={currentColumns}
+            data={currentData}
           />
         </div>
       </div>
@@ -88,4 +95,4 @@ function App({ classicResponse, musicResponse }: AppProps) {
   )
 }
 
-export default App;
+export default App
