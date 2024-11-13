@@ -1,0 +1,29 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "checkJs": false,
+    
+    // Skip type checking of declaration files
+    "skipLibCheck": true,
+    
+    // Allow importing modules without type declarations
+    "noImplicitAny": false,
+    
+    // Disable strict type checking
+    "strict": false,
+    
+    // Allow using the '!' postfix operator to assert non-null
+    "strictNullChecks": false,
+    
+    // Skip checking for unreachable code
+    "allowUnreachableCode": true
+  }
+}
