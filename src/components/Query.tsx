@@ -1,39 +1,60 @@
+import { FC } from 'react';
 import App from "./App";
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { TeamData } from '../table/columns';
 
-const BASE_URL = 'https://beo.mzgb.net/api/rating'
+const BASE_URL = 'https://beo.mzgb.net/api/rating';
 
-const Query = () => {
-    // const formattedDate = format(new Date(dataUpdatedAt), 'dd.MM.yyyy HH:mm:ss');
+interface RatingResponse {
+  rating: TeamData[];
+}
 
-    //load data for classic rating
-    const { isError: isError1, isLoading: isLoading1, data: classicData } = useQuery({
-        queryKey: ['ratingData'],
-        queryFn: () => axios(`${BASE_URL}?limit=500`).then((res) => res.data.rating),
-    })
+const fetchRatingData = async (params: string = ''): Promise<RatingResponse> => {
+  const response = await axios.get(`${BASE_URL}${params}`);
+  return response.data;
+};
 
-    //load data for music rating
-    const { isError: isError2, isLoading: isLoading2, data: musicData } = useQuery({
-        queryKey: ['musicRatingData'],
-        queryFn: () =>
-            axios(`${BASE_URL}?page=rating-music&sort=season_points&limit=500`).then((res) => res.data.rating),
-    })
+const Query: FC = () => {
+  const {
+    data: classicData,
+    isError: isClassicError,
+    isLoading: isClassicLoading
+  } = useQuery({
+    queryKey: ['classicRating'],
+    queryFn: () => fetchRatingData('?sort=points&limit=500'),
+    select: (data) => data.rating,
+  });
 
-    // console.log('Response 1:', classicData)
-    // console.log('Response 2:', musicData)
+  const {
+    data: musicData,
+    isError: isMusicError,
+    isLoading: isMusicLoading
+  } = useQuery({
+    queryKey: ['musicRating'],
+    queryFn: () => fetchRatingData('?page=rating-music&sort=points&limit=500'),
+    select: (data) => data.rating,
+  });
 
-    if (isLoading1 || isLoading2) {
-        return <div>Loading...</div>;
-    }
-
-    if (isError1 || !classicData || isError2 || !musicData) {
-        return <div>Error</div>;
-    }
-
+  if (isClassicLoading || isMusicLoading) {
     return (
-        <App classicResponse={classicData} musicResponse={musicData} />
-    )
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  if (isClassicError || isMusicError || !classicData || !musicData) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg text-red-500">
+          Error loading data. Please try again later.
+        </div>
+      </div>
+    );
+  }
+
+  return <App classicResponse={classicData} musicResponse={musicData} />;
 };
 
 export default Query;
