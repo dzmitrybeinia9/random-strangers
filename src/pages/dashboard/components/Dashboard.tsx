@@ -1,4 +1,4 @@
-import { DataTable } from "../../../components/table/DataTable"
+import { DataTable } from "../../../table/data-table"
 import { SwitchButton } from '../../../components/ui/SwitchButton'
 import { ColumnDef } from "@tanstack/react-table"
 import { TeamData } from "../../../lib/types"
