@@ -11,7 +11,7 @@ import {
 } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import {
     Table,
@@ -24,17 +24,21 @@ import {
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
-    // data: TData[]
-    data: any[]
+    data: TData[]
+    defaultSorting?: SortingState
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends { team: string }>({
     columns,
     data,
-}: DataTableProps<TData, TValue>) {
+    defaultSorting = [],
+}: DataTableProps<TData, any>) {
+    const [sorting, setSorting] = useState<SortingState>(defaultSorting)
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 
-    const [sorting, setSorting] = useState<SortingState>([]);
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    useEffect(() => {
+        setSorting(defaultSorting)
+    }, [defaultSorting])
 
     const table = useReactTable({
         data,
@@ -49,6 +53,7 @@ export function DataTable<TData, TValue>({
             sorting,
             columnFilters,
         },
+        columnResizeMode: "onChange",
     })
 
     return (
@@ -72,18 +77,19 @@ export function DataTable<TData, TValue>({
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <TableHead key={header.id}>
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                    header.column.columnDef.header,
-                                                    header.getContext()
-                                                )}
-                                        </TableHead>
-                                    )
-                                })}
+                                {headerGroup.headers.map((header) => (
+                                    <TableHead 
+                                        key={header.id}
+                                        style={{ width: header.getSize() }}
+                                    >
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
+                                            )}
+                                    </TableHead>
+                                ))}
                             </TableRow>
                         ))}
                     </TableHeader>
@@ -101,7 +107,10 @@ export function DataTable<TData, TValue>({
                                     }
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell 
+                                            key={cell.id}
+                                            style={{ width: cell.column.getSize() }}
+                                        >
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}

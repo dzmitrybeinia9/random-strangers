@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { DataTable } from "../table/data-table"
 import { allTimeColumns, seasonColumns, TeamData } from "../table/columns"
+import { SortingState } from "@tanstack/react-table"
 
 interface AppProps {
   classicResponse: TeamData[];
@@ -37,9 +38,19 @@ const SwitchButton = ({ isActive, onClick, label }: SwitchButtonProps) => (
 function App({ classicResponse, musicResponse }: AppProps) {
   const [contentMode, setContentMode] = useState<ContentMode>('classic')
   const [viewMode, setViewMode] = useState<ViewMode>('all')
+  const [sorting, setSorting] = useState<SortingState>([
+    { id: 'points', desc: true }
+  ])
 
   const classicData = useMemo(() => classicResponse, [classicResponse])
   const musicData = useMemo(() => musicResponse, [musicResponse])
+
+  // Update sorting whenever viewMode changes
+  useEffect(() => {
+    setSorting([
+      { id: viewMode === 'all' ? 'points' : 'season_points', desc: true }
+    ])
+  }, [viewMode])
 
   const backgroundStyle = {
     backgroundColor: THEME_COLORS[contentMode],
@@ -88,6 +99,7 @@ function App({ classicResponse, musicResponse }: AppProps) {
           <DataTable
             columns={currentColumns}
             data={currentData}
+            defaultSorting={sorting}
           />
         </div>
       </div>
