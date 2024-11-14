@@ -4,9 +4,18 @@ export default {
   content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
     extend: {
-	  fontFamily: {
-		regular: ["Tinos"]
-	  },
+      fontFamily: {
+        regular: ["Lato", "sans-serif"],
+        thin: ["Lato-Thin", "sans-serif"],
+        light: ["Lato-Light", "sans-serif"],
+        bold: ["Lato-Bold", "sans-serif"],
+        black: ["Lato-Black", "sans-serif"],
+        italic: ["Lato-Italic", "sans-serif"],
+        'thin-italic': ["Lato-ThinItalic", "sans-serif"],
+        'light-italic': ["Lato-LightItalic", "sans-serif"],
+        'bold-italic': ["Lato-BoldItalic", "sans-serif"],
+        'black-italic': ["Lato-BlackItalic", "sans-serif"],
+      },
       transitionTimingFunction: {
         smooth: "cubic-bezier(.2,.64,.77,.3)",
       },
