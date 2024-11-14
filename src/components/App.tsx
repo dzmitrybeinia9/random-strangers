@@ -44,7 +44,7 @@ function App({ classicResponse, musicResponse }: AppProps) {
   const currentColumns = viewMode === 'all' ? allTimeColumns : seasonColumns
 
   return (
-    <div className="min-h-[calc(100vh-64px)] w-full transition-all duration-1000 ease-in-out" 
+    <div className="min-h-[calc(100vh-64px)] w-full transition-all duration-200 ease-in-out" 
          style={backgroundStyle}>
       <div className="container mx-auto py-5">
         <Dashboard

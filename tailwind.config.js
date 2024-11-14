@@ -66,6 +66,17 @@ export default {
           5: "hsl(var(--chart-5))",
         },
       },
+      animation: {
+        "accordion-down": "accordion-down 200ms ease-out",
+        "accordion-up": "accordion-up 200ms ease-out",
+        "fade-in": "fadeIn 150ms ease-out",
+        "fade-out": "fadeOut 150ms ease-in",
+      },
+      transitionDuration: {
+        '150': '150ms',
+        '200': '200ms',
+        '250': '250ms',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

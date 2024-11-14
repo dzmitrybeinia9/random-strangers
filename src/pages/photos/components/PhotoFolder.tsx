@@ -14,6 +14,7 @@ export function PhotoFolder({ title, photos, color }: PhotoFolderProps) {
     <motion.div 
       className="bg-white/80 backdrop-blur rounded-lg p-6 cursor-pointer"
       whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.2 }}
       onClick={() => setIsOpen(!isOpen)}
     >
       <div className="flex items-center gap-3 mb-4">
@@ -43,9 +44,9 @@ export function PhotoFolder({ title, photos, color }: PhotoFolderProps) {
             <img 
               src={photo} 
               alt={`${title} photo ${index + 1}`}
-              className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
+              className="object-cover w-full h-full transition-transform duration-200 group-hover:scale-110"
             />
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
               <motion.button
                 className="bg-white/90 text-gray-800 px-4 py-2 rounded-full font-medium"
                 whileHover={{ scale: 1.05 }}

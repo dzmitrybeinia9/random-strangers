@@ -59,6 +59,7 @@
 @layer base {
   * {
     @apply border-border;
+    @apply transition-colors duration-200;
   }
   body {
     @apply bg-background text-foreground;
@@ -67,7 +68,7 @@
 
 @layer components {
   .smooth-button {
-    @apply px-4 py-2 rounded-md transition-all duration-700 ease-smooth
+    @apply px-4 py-2 rounded-lg transition-all duration-200;
   }
 }
 
@@ -175,4 +176,8 @@
   font-weight: 900;
   font-style: italic;
   font-display: swap;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 200ms ease-out;
 }

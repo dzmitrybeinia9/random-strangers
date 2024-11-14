@@ -72,7 +72,7 @@ function PhotosPage() {
               className="relative aspect-square rounded-xl overflow-hidden cursor-pointer"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ duration: 0.2 }}
               whileHover={{ scale: 1.05 }}
               onClick={() => setSelectedPhoto(photo)}
             >
@@ -81,7 +81,7 @@ function PhotosPage() {
                 alt={`Photo ${index + 1}`}
                 className="object-cover w-full h-full"
               />
-              <div className="absolute inset-0 bg-black/30 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <div className="absolute inset-0 bg-black/30 opacity-0 hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
                 <span className="text-white bg-black/50 px-4 py-2 rounded-full">
                   View
                 </span>
@@ -137,6 +137,7 @@ function PhotosPage() {
             exit={{ opacity: 0 }}
             onClick={() => setSelectedPhoto(null)}
             className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+            transition={{ duration: 0.2 }}
           >
             <motion.div
               initial={{ scale: 0.9 }}
@@ -144,6 +145,7 @@ function PhotosPage() {
               exit={{ scale: 0.9 }}
               className="relative max-w-4xl w-full aspect-auto"
               onClick={e => e.stopPropagation()}
+              transition={{ duration: 0.25 }}
             >
               <img 
                 src={selectedPhoto} 
