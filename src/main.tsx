@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Query from './components/Query'
+import { RatingDataProvider } from './pages/dashboard/components/RatingDataProvider'
 import Layout from './components/layout/Layout'
 import PhotosPage from './pages/photos'
 import Statistics from './pages/statistics'
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Query />,
+        element: <RatingDataProvider />,
       },
       {
         path: 'photos',
