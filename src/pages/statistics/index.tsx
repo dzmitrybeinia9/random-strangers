@@ -34,6 +34,7 @@ interface TeamGameData {
   date: string
   total: number
   scores: number[]
+  rank: number
 }
 
 function Statistics() {
@@ -52,7 +53,8 @@ function Statistics() {
           teamGames.push({
             date: game.date,
             total: teamInGame.total,
-            scores: teamInGame.scores
+            scores: teamInGame.scores,
+            rank: teamInGame.rank
           })
         }
 
@@ -107,6 +109,19 @@ function Statistics() {
     ],
   }
 
+  const rankPerGameData = {
+    labels: teamHistory.map(game => formatDate(game.date)),
+    datasets: [
+      {
+        label: 'Place',
+        data: teamHistory.map(game => game.rank),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        tension: 0.1,
+      },
+    ],
+  }
+
   const averagePointsPerRoundData = {
     labels: ['1', '2', '3', '4', '5', '6', '7'],
     datasets: [
@@ -119,6 +134,35 @@ function Statistics() {
       },
     ],
   }
+
+  // Add new calculation for winners' average scores
+  const winnersAveragePerRound = [1, 2, 3, 4, 5, 6, 7].map(roundIndex => {
+    const winnerScores = classicData.map(game => {
+      const winner = game.teams.find(team => team.rank === 1);
+      return winner?.scores[roundIndex - 1] || 0;
+    });
+    return Number((winnerScores.reduce((a, b) => a + b, 0) / winnerScores.length).toFixed(2));
+  });
+
+  const roundComparisonData = {
+    labels: ['Round 1', 'Round 2', 'Round 3', 'Round 4', 'Round 5', 'Round 6', 'Round 7'],
+    datasets: [
+      {
+        label: 'Team Average',
+        data: averagePointsPerRound,
+        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+        borderColor: 'rgb(75, 192, 192)',
+        borderWidth: 1,
+      },
+      {
+        label: 'Winners Average',
+        data: winnersAveragePerRound,
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 1,
+      }
+    ]
+  };
 
   const lineChartOptions = {
     responsive: true,
@@ -194,6 +238,54 @@ function Statistics() {
     },
   }
 
+  const rankChartOptions = {
+    ...lineChartOptions,
+    scales: {
+      ...lineChartOptions.scales,
+      y: {
+        ...lineChartOptions.scales.y,
+        reverse: true,
+        min: 0,
+        max: 15,
+        ticks: {
+          stepSize: 1,
+          font: {
+            size: window.innerWidth < 768 ? 10 : 12
+          }
+        }
+      }
+    }
+  }
+
+  // Add specific options for the comparison chart
+  const comparisonChartOptions = {
+    ...barChartOptions,
+    plugins: {
+      ...barChartOptions.plugins,
+      title: {
+        display: true,
+        text: 'Round Performance vs Winners',
+        font: {
+          size: window.innerWidth < 768 ? 12 : 14
+        }
+      }
+    },
+    scales: {
+      ...barChartOptions.scales,
+      y: {
+        ...barChartOptions.scales.y,
+        min: 0,
+        max: 14, // Assuming maximum possible score per round is 12
+        ticks: {
+          stepSize: 2,
+          font: {
+            size: window.innerWidth < 768 ? 10 : 12
+          }
+        }
+      }
+    }
+  };
+
   return (
     <div className="p-2 sm:p-4">
       <h1 className="text-xl sm:text-2xl font-bold mb-4">Statistics</h1>
@@ -231,9 +323,23 @@ function Statistics() {
         </div>
 
         <div className="bg-white p-3 sm:p-4 rounded-lg shadow">
+          <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-4">Place per Game</h3>
+          <div className="h-[250px] sm:h-[300px]">
+            <Line options={rankChartOptions} data={rankPerGameData} />
+          </div>
+        </div>
+
+        <div className="bg-white p-3 sm:p-4 rounded-lg shadow">
           <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-4">Average Points per Round</h3>
           <div className="h-[250px] sm:h-[300px]">
             <Bar options={barChartOptions} data={averagePointsPerRoundData} />
+          </div>
+        </div>
+
+        <div className="bg-white p-3 sm:p-4 rounded-lg shadow">
+          <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-4">Round Comparison with Winners</h3>
+          <div className="h-[250px] sm:h-[300px]">
+            <Bar options={comparisonChartOptions} data={roundComparisonData} />
           </div>
         </div>
       </div>
