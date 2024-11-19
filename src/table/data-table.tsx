@@ -62,7 +62,7 @@ export function DataTable<TData extends { team: string }>({
             {/* hide input on small devices */}
             <div className="flex items-center py-4 md:block hidden">
                 <Input
-                    placeholder="Find team..."
+                    placeholder="Search for a team..."
                     value={(table.getColumn("team")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn("team")?.setFilterValue(event.target.value)

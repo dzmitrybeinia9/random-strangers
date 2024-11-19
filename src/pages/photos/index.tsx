@@ -96,13 +96,6 @@ function PhotosPage() {
   return (
     <>
       <div className="container mx-auto py-8 px-4">
-        <motion.h1 
-          className="text-3xl font-bold mb-12 text-center text-gray-800"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          Photo Gallery
-        </motion.h1>
 
         <div className="space-y-16">
           {/* Current Season */}

@@ -25,7 +25,7 @@ function Dashboard({
   return (
     <>
       <div className="flex items-center justify-center mb-4 gap-2">
-        <div className="bg-gray-200/80 backdrop-blur rounded-lg p-1 w-auto">
+      <div className="bg-white shadow-md rounded-xl p-1.5 w-auto sm:w-auto hover:shadow-lg transition-shadow">
           <SwitchButton
             isActive={contentMode === 'classic'}
             onClick={() => setContentMode('classic')}
@@ -38,7 +38,7 @@ function Dashboard({
           />
         </div>
 
-        <div className="bg-gray-200/80 backdrop-blur rounded-lg p-1">
+        <div className="bg-white shadow-md rounded-xl p-1.5 w-auto sm:w-auto hover:shadow-lg transition-shadow">
           <SwitchButton
             isActive={viewMode === 'all'}
             onClick={() => setViewMode('all')}
@@ -52,12 +52,15 @@ function Dashboard({
         </div>
       </div>
 
-      <div className="bg-white/80 backdrop-blur rounded-lg p-4 mx-7">
-        <DataTable
-          columns={currentColumns}
-          data={currentData}
-          defaultSorting={sorting}
-        />
+      {/* Table Section */}
+      <div className="bg-white shadow-lg rounded-xl overflow-hidden mx-7">
+        <div className="p-4">
+          <DataTable
+            columns={currentColumns}
+            data={currentData}
+            defaultSorting={sorting}
+          />
+        </div>
       </div>
     </>
   )
