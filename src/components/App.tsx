@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect } from 'react'
-import { allTimeColumns, seasonColumns, TeamData } from "../table/columns"
+import { allTimeColumns, seasonColumns } from "../table/columns"
 import { SortingState } from "@tanstack/react-table"
-import Dashboard from './Dashboard'
+import Dashboard from '../pages/dashboard/components/Dashboard'
+import { TeamData } from '../lib/types'
 
 interface AppProps {
   classicResponse: TeamData[];
