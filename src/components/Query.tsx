@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import App from "./App";
+import DashboardPage from "../pages/dashboard";
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { TeamData } from '../table/columns';
+import { TeamData } from '../lib/types';
 
 const BASE_URL = 'https://beo.mzgb.net/api/rating';
 
@@ -54,7 +54,7 @@ const Query: FC = () => {
     );
   }
 
-  return <App classicResponse={classicData} musicResponse={musicData} />;
+  return <DashboardPage classicResponse={classicData} musicResponse={musicData} />;
 };
 
 export default Query;

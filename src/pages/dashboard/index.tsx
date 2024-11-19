@@ -33,20 +33,14 @@ function DashboardPage({ classicResponse, musicResponse }: DashboardPageProps) {
     ])
   }, [viewMode])
 
-  const backgroundStyle = {
-    backgroundColor: THEME_COLORS[contentMode],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    zIndex: -1,
-  }
-
   const currentData = contentMode === 'music' ? musicData : classicData
   const currentColumns = viewMode === 'all' ? allTimeColumns : seasonColumns
 
   return (
-    <div className="min-h-[calc(100vh-64px)] w-full transition-all duration-1000 ease-in-out" 
-         style={backgroundStyle}>
+    <div 
+      className="min-h-[calc(100vh-64px)] w-full transition-colors duration-300 ease-in-out" 
+      style={{ backgroundColor: THEME_COLORS[contentMode] }}
+    >
       <div className="container mx-auto py-5">
         <Dashboard
           contentMode={contentMode}
