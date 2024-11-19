@@ -14,7 +14,7 @@ export function PhotoFolder({ title, photos, color }: PhotoFolderProps) {
     <motion.div 
       className="bg-white/80 backdrop-blur rounded-lg p-6 cursor-pointer"
       whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.2 }}
+      transition={{ duration: 0.1 }}
       onClick={() => setIsOpen(!isOpen)}
     >
       <div className="flex items-center gap-3 mb-4">
@@ -39,7 +39,7 @@ export function PhotoFolder({ title, photos, color }: PhotoFolderProps) {
             className="relative aspect-square rounded-lg overflow-hidden group"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
+            // transition={{ delay: index * 0.1 }}
           >
             <img 
               src={photo} 

@@ -1,10 +1,9 @@
-import { FC } from 'react';
 import { useRatingData } from '../hooks/useRatingData';
 import { Loading } from '../../../components/ui/loading';
 import { Error } from '../../../components/ui/error';
 import DashboardPage from '..';
 
-export const RatingDataProvider: FC = () => {
+export const RatingDataProvider = () => {
   const { classicData, musicData, isLoading, isError } = useRatingData();
 
   if (isLoading) {
