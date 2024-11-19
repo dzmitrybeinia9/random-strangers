@@ -1,5 +1,5 @@
 import { DataTable } from "../table/data-table"
-import { SwitchButton } from './SwitchButton'
+import { SwitchButton } from './ui/switch-button'
 import { ColumnDef } from "@tanstack/react-table"
 import { TeamData } from "../table/columns"
 
