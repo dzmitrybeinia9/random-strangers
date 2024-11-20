@@ -18,11 +18,13 @@ function Navigation() {
         <div className="flex h-16">
           <div className="flex">
             <div className="h-16 w-16 flex pl-3 items-center">
-              <img
-                className="h-8 w-8 rounded-full"
-                src={mzgbLogo}
-                alt="MZGB Logo"
-              />
+              <Link to="/">
+                <img
+                  className="h-8 w-8 rounded-full"
+                  src={mzgbLogo}
+                  alt="MZGB Logo"
+                />
+              </Link>
             </div>
             <div className="flex space-x-8">
               <Link to="/" className={getLinkClass('/')}>

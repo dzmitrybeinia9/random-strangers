@@ -288,11 +288,10 @@ function Statistics() {
 
   return (
     <div className="p-2 sm:p-4">
-      <h1 className="text-xl sm:text-2xl font-bold mb-4">Statistics</h1>
+      <h1 className="text-xl sm:text-2xl font-bold mb-4">Classic</h1>
       
       {/* Team Summary */}
       <div className="mb-4 sm:mb-8 p-3 sm:p-4 bg-white rounded-lg shadow">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">{TEAM_NAME}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="text-center">
             <p className="text-gray-600">Games Played</p>
